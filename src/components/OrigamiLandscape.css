@@ -1,0 +1,770 @@
+/* ============================================
+   ORIGAMI LANDSCAPE - Single Spanning Fan
+   ============================================ */
+
+.origami-landscape {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #0d0f14 0%,
+    #151a24 25%,
+    #1d2433 50%,
+    #252d3d 75%,
+    #2d3647 100%
+  );
+}
+
+/* ============================================
+   SKY & CELESTIAL ELEMENTS
+   ============================================ */
+
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: linear-gradient(
+    180deg,
+    #080a10 0%,
+    #0f1318 30%,
+    #171d28 60%,
+    #1f2738 100%
+  );
+}
+
+.celestial-body {
+  position: absolute;
+  top: 10%;
+  right: 18%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #fffef5 0%,
+    #f0e6d3 30%,
+    #d4c4a8 70%,
+    #a89070 100%
+  );
+  box-shadow:
+    0 0 50px rgba(255, 254, 245, 0.4),
+    0 0 100px rgba(255, 254, 245, 0.2),
+    0 0 150px rgba(212, 196, 168, 0.15);
+  animation: moon-glow 6s ease-in-out infinite;
+}
+
+@keyframes moon-glow {
+  0%, 100% { 
+    box-shadow:
+      0 0 50px rgba(255, 254, 245, 0.4),
+      0 0 100px rgba(255, 254, 245, 0.2),
+      0 0 150px rgba(212, 196, 168, 0.15);
+  }
+  50% { 
+    box-shadow:
+      0 0 60px rgba(255, 254, 245, 0.5),
+      0 0 120px rgba(255, 254, 245, 0.25),
+      0 0 180px rgba(212, 196, 168, 0.2);
+  }
+}
+
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fffef7;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: twinkle var(--twinkle-duration, 8s) ease-in-out infinite;
+  animation-delay: var(--star-delay, 0s);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+/* ============================================
+   MOUNTAINS
+   ============================================ */
+
+.mountains {
+  position: absolute;
+  bottom: 25%;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  pointer-events: none;
+}
+
+.mountain {
+  position: absolute;
+  bottom: 0;
+  width: 120%;
+  left: -10%;
+}
+
+.mountain-back {
+  height: 65%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(25, 30, 40, 0.7) 40%,
+    rgba(35, 42, 55, 0.9) 100%
+  );
+  clip-path: polygon(
+    0% 100%, 0% 55%, 8% 48%, 15% 38%, 22% 45%, 30% 30%, 
+    38% 40%, 45% 28%, 52% 38%, 60% 25%, 68% 35%, 
+    75% 30%, 82% 42%, 90% 35%, 100% 48%, 100% 100%
+  );
+}
+
+.mountain-mid {
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(35, 42, 55, 0.8) 50%,
+    rgba(45, 55, 70, 1) 100%
+  );
+  clip-path: polygon(
+    0% 100%, 0% 50%, 10% 42%, 18% 32%, 25% 40%, 
+    35% 28%, 42% 38%, 50% 25%, 58% 35%, 65% 30%, 
+    72% 42%, 80% 35%, 88% 45%, 100% 40%, 100% 100%
+  );
+}
+
+.mountain-front {
+  height: 35%;
+  background: linear-gradient(
+    180deg,
+    rgba(50, 60, 75, 0.9) 0%,
+    rgba(60, 72, 90, 1) 100%
+  );
+  clip-path: polygon(
+    0% 100%, 0% 45%, 12% 40%, 22% 50%, 32% 38%, 
+    42% 48%, 52% 35%, 62% 45%, 72% 40%, 82% 52%, 
+    92% 42%, 100% 50%, 100% 100%
+  );
+}
+
+/* ============================================
+   MIST
+   ============================================ */
+
+.mist {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  pointer-events: none;
+}
+
+.mist-1 {
+  bottom: 28%;
+  height: 100px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(180, 175, 165, 0.08) 50%,
+    transparent 100%
+  );
+  animation: mist-drift 25s ease-in-out infinite;
+}
+
+.mist-2 {
+  bottom: 22%;
+  height: 70px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(160, 155, 145, 0.1) 50%,
+    transparent 100%
+  );
+  animation: mist-drift 30s ease-in-out infinite reverse;
+}
+
+@keyframes mist-drift {
+  0%, 100% { transform: translateX(-3%); }
+  50% { transform: translateX(3%); }
+}
+
+/* ============================================
+   MAIN SPANNING FAN
+   ============================================ */
+
+.main-fan {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 85%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10;
+}
+
+.fan-pivot {
+  position: absolute;
+  bottom: 6.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  z-index: 100; /* Always on top of enlarged folds */
+}
+
+.pivot-decoration {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    #e8ddd0 0%,
+    #c4b8a8 40%,
+    #9a8878 100%
+  );
+  border-radius: 50%;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    inset 0 3px 8px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   FAN FOLDS
+   ============================================ */
+
+.fan-folds {
+  position: absolute;
+  bottom: 8%;
+  left: 0;
+  width: 100%;
+  height: 85%;
+}
+
+.fan-fold {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 35%;
+  height: 100%;
+  transform-origin: bottom center;
+  margin-left: -17.5%;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+  overflow: visible;
+}
+
+.fan-fold.near {
+  z-index: 50;
+}
+
+.fan-fold.near .fold-surface {
+  box-shadow: 
+    /* Inner shading for depth - preserves original color */
+    inset 8px 0 25px rgba(0, 0, 0, 0.2),
+    inset -8px 0 25px rgba(0, 0, 0, 0.15),
+    inset 0 -10px 30px rgba(0, 0, 0, 0.15),
+    inset 0 8px 20px rgba(255, 255, 255, 0.25);
+  /* No background override - keeps original --fold-color */
+}
+
+.fan-fold.near .fold-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.08) 40%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+  pointer-events: none;
+  clip-path: inherit;
+}
+
+.fold-surface {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(200, 195, 185, 0.85) 0%,
+    var(--fold-color) 8%,
+    var(--fold-color) 92%,
+    rgba(190, 185, 175, 0.8) 100%
+  );
+  /* Pie-slice shape with curved arc at top */
+  clip-path: polygon(
+    50% 100%,
+    15% 8%,
+    20% 4%,
+    28% 1%,
+    38% 0%,
+    50% 0%,
+    62% 0%,
+    72% 1%,
+    80% 4%,
+    85% 8%
+  );
+  transition: transform 0.3s ease;
+}
+
+.fan-fold:hover .fold-surface {
+  transform: scaleY(1.03);
+}
+
+.fold-crease {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.08) 30%,
+    rgba(0, 0, 0, 0.05) 70%,
+    transparent 100%
+  );
+  transform: translateX(-50%);
+}
+
+.fold-highlight {
+  position: absolute;
+  left: 35%;
+  bottom: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Labels layer */
+.fan-labels {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.fold-label {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.9rem, 1.3vw, 1.2rem);
+  font-weight: 600;
+  color: rgba(45, 35, 25, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow: 
+    0 0 10px rgba(255, 254, 247, 0.9),
+    0 1px 3px rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.fold-label:hover {
+  opacity: 1;
+  color: rgba(25, 20, 15, 1);
+}
+
+/* ============================================
+   FAN RIBS
+   ============================================ */
+
+.fan-ribs-container {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 100%;
+  height: 85%;
+  pointer-events: none;
+}
+
+.fan-rib {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(140, 120, 95, 0.1) 0%,
+    rgba(120, 100, 75, 0.35) 40%,
+    rgba(100, 80, 60, 0.65) 100%
+  );
+  transform-origin: bottom center;
+  margin-left: -2.5px;
+  border-radius: 3px 3px 0 0;
+}
+
+/* ============================================
+   CENTER NAME
+   ============================================ */
+
+.center-name {
+  position: absolute;
+  bottom: 45%;
+  left: 47%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.name-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 400;
+  color: rgba(70, 58, 45, 0.95);
+  letter-spacing: 0.1em;
+  text-shadow: 
+    0 2px 6px rgba(255, 255, 255, 0.35),
+    0 0 40px rgba(255, 254, 247, 0.25);
+  margin: 0;
+}
+
+.name-subtitle {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-weight: 300;
+  color: rgba(85, 70, 55, 0.85);
+  letter-spacing: 0.35em;
+  margin-top: 0.6rem;
+}
+
+/* ============================================
+   GROUND
+   ============================================ */
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  left: -5%;
+  width: 110%;
+  height: 5%;
+  background: linear-gradient(
+    180deg,
+    rgba(35, 42, 55, 0.9) 0%,
+    rgba(25, 30, 40, 1) 100%
+  );
+  z-index: 5;
+}
+
+/* ============================================
+   PAPER TEXTURE
+   ============================================ */
+
+.paper-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================
+   EXPANDED FOLD OVERLAY
+   ============================================ */
+
+.expanded-fold-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 12, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.expanded-fold {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  min-height: 70vh;
+  max-height: 90vh;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--fold-color) 95%, #fff) 0%,
+    var(--fold-color) 30%,
+    color-mix(in srgb, var(--fold-color) 90%, #000) 100%
+  );
+  border-radius: 30px 30px 15px 15px;
+  overflow: hidden;
+  box-shadow: 
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.expanded-ribs {
+  display: none; /* Hidden - removes the line in the middle */
+}
+
+.expanded-rib {
+  position: absolute;
+  bottom: -100%;
+  left: 50%;
+  width: 2px;
+  height: 250px;
+  background: linear-gradient(
+    0deg,
+    var(--fold-accent) 0%,
+    rgba(100, 80, 60, 0.3) 70%,
+    transparent 100%
+  );
+  transform-origin: bottom center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--fold-accent);
+  font-size: 2rem;
+  font-weight: 300;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.expanded-content {
+  padding: 80px 50px 50px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.expanded-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  color: var(--fold-accent);
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
+}
+
+.expanded-details {
+  list-style: none;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.expanded-details li {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: rgba(50, 40, 30, 0.9);
+  padding: 1rem 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.expanded-details li:last-child {
+  border-bottom: none;
+}
+
+.expanded-project {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.project-desc {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: rgba(50, 40, 30, 0.85);
+  line-height: 1.7;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.tech-tag {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--fold-accent);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 25px;
+  letter-spacing: 0.03em;
+}
+
+.project-media {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.media-video,
+.media-image {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 15px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* Side-by-side layout for Veato */
+.expanded-project.side-by-side {
+  max-width: 900px;
+}
+
+.side-by-side-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.media-left {
+  flex: 0 0 45%;
+  margin-top: 0;
+}
+
+.media-video.small {
+  max-width: 100%;
+  width: 100%;
+}
+
+.description-right {
+  flex: 1;
+  text-align: left;
+}
+
+.description-right .project-desc {
+  margin-bottom: 0;
+  text-align: left;
+}
+
+/* Reference image for Cornell Box */
+.reference-image {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.reference-label {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.9rem;
+  color: rgba(50, 40, 30, 0.7);
+  margin-bottom: 0.5rem;
+}
+
+.media-image.reference {
+  max-width: 400px;
+  opacity: 0.9;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .fan-fold {
+    width: 14%;
+  }
+  
+  .fold-label {
+    font-size: 0.6rem;
+  }
+  
+  .name-text {
+    font-size: 2rem;
+  }
+  
+  .name-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .expanded-content {
+    padding: 60px 25px 30px;
+  }
+  
+  .expanded-fold {
+    width: 95%;
+    min-height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .fan-fold {
+    width: 16%;
+  }
+  
+  .fold-label {
+    font-size: 0.5rem;
+    bottom: 30%;
+  }
+  
+  .center-name {
+    bottom: 40%;
+  }
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+.expanded-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.expanded-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.expanded-content::-webkit-scrollbar-thumb {
+  background: var(--fold-accent);
+  border-radius: 3px;
+}
